@@ -14,14 +14,12 @@ body {
     sans-serif;
   /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;*/
-  background-color: red;
 }
 
 .main-container{
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  background-color: blue;
   align-items: stretch;
 }
 
@@ -30,12 +28,4 @@ body {
   width: 20vw;
   background-color: grey;
   padding: 20px;
-}
-
-.map-container{
-  width: 80vw;
-}
-
-.map{
-  height: 100%;
 }

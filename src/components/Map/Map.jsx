@@ -10,37 +10,29 @@ class Map extends Component{
     this.state = {
       lng: 10.390457,
       lat: 63.42442,
-      zoom: 13
+      zoom: 13,
+      layers: props.layers
     };
   }
 
   componentDidMount() {
-    const { lng, lat, zoom } = this.state;
+    const { lng, lat, zoom, layers } = this.state;
 
     const map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/light-v10',
       center: [lng, lat],
-      zoom
+      zoom: zoom,
     });
 
     map.on('load', function () {
-
-      map.addLayer({
-        "id": "Fotruter",
-        "source-layer": "Fotruter-5g72iz",
-        "type": "line",
-        "source": {
-          type: 'vector',
-          url: 'mapbox://gurogb.9bemfz63'
-
-        },
-        "paint": {
-          "line-color": "#ff69b4",
-          "line-width": 1
-        }
-      });
+      layers.forEach( layer => {
+        console.log("Adding layer" + layer.id)
+        map.addLayer(layer)
+      })
     });
+
+
 
      map.on('move', () => {
       const { lng, lat } = map.getCenter();

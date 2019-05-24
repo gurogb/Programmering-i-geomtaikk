@@ -1,0 +1,11 @@
+.active-layer{
+  color: white;
+}
+
+.disabled-layer{
+  color: #929191;
+}
+
+.menu-layer{
+  cursor: pointer;
+}

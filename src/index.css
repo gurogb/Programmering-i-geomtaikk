@@ -25,6 +25,7 @@ body {
 
 .menu-container{
   display: flex;
+  flex-direction: column;
   width: 20vw;
   background-color: grey;
   padding: 20px;

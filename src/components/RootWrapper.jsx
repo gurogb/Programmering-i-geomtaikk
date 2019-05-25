@@ -4,12 +4,14 @@ import MapMenu from './MapMenu/MapMenu.jsx'
 import allLayers from '../datasets/layers.js'
 
 
+
 class RootWrapper extends Component {
 
   constructor(props) {
     super(props);
 
     this.handleLayerChange = this.handleLayerChange.bind(this);
+    this.newLayerAdded = this.newLayerAdded.bind(this);
 
     this.mapElement = React.createRef()
 
@@ -17,6 +19,16 @@ class RootWrapper extends Component {
       allAvailableLayers: allLayers,
       visibleLayers: [],
     };
+  }
+
+  newLayerAdded(layer){
+      const {allAvailableLayers, visibleLayers} = this.state
+      this.setState({
+        visibleLayers: [...visibleLayers, layer],
+        allAvailableLayers: [...allAvailableLayers, layer]
+      })
+
+      this.mapElement.current.addNewLayer(layer)
   }
 
   handleLayerChange(updatedLayers){
@@ -33,11 +45,16 @@ class RootWrapper extends Component {
 
   render() {
     const { allAvailableLayers, visibleLayers } = this.state
+    //const buffered = bufferTool(allAvailableLayers[4].source.data, 5)
+    //console.log(buffered)
+
+    //allAvailableLayers[4].source.data = buffered
+
 
     return (
       <div className="RootWrapper">
        <div className="main-container">
-         <MapMenu layers={allAvailableLayers} visibleLayers={visibleLayers} layersChanged={this.handleLayerChange}/>
+         <MapMenu layers={allAvailableLayers} visibleLayers={visibleLayers} layersChanged={this.handleLayerChange} addLayer={this.newLayerAdded}/>
          <div className="map-container">
            <Map allAvailableLayers={allAvailableLayers} ref={this.mapElement} />
          </div>

@@ -1,10 +1,60 @@
-const layer_fotruter = {
-  "id": "Fotruter",
-  "source-layer": "Fotruter-5g72iz",
+import {gloshaugen, campusrunden, kantiner, hoyskoleparken, frimerket} from './geojsondata.js'
+
+
+const layer_gloshaugen = {
+    "id": "Gløshaugen",
+    "type": "fill",
+    "source": {
+      type: 'geojson',
+      data: gloshaugen
+    },
+    "paint": {
+      "fill-color": "#ff69b4",
+      "fill-opacity": 0.4
+    },
+    "layout":{
+      "visibility":"none"
+    }
+}
+
+const layer_hoyskoleparken = {
+    "id": "Høyskoleparken",
+    "type": "fill",
+    "source": {
+      type: 'geojson',
+      data: hoyskoleparken
+    },
+    "paint": {
+      "fill-color": "#ff69b4",
+      "fill-opacity": 0.4
+    },
+    "layout":{
+      "visibility":"none"
+    }
+}
+
+const layer_frimerket = {
+    "id": "Frimerket",
+    "type": "fill",
+    "source": {
+      type: 'geojson',
+      data: frimerket
+    },
+    "paint": {
+      "fill-color": "#ff69b4",
+      "fill-opacity": 0.4
+    },
+    "layout":{
+      "visibility":"none"
+    }
+}
+
+const layer_campusrunden = {
+  "id": "Campusrunden",
   "type": "line",
   "source": {
-    type: 'vector',
-    url: 'mapbox://gurogb.9bemfz63'
+    type: 'geojson',
+    data: campusrunden
   },
   "paint": {
     "line-color": "#ff69b4",
@@ -15,14 +65,12 @@ const layer_fotruter = {
   }
 }
 
-const layer_brannstasjoner = {
-  "id": "Brannstasjoner",
-  "source-layer": "brannstasjoner-0eish2",
+const layer_kantiner = {
+  "id": "Kantiner",
   "type": "circle",
   "source": {
-    type: 'vector',
-    url: 'mapbox://gurogb.0rro77ny'
-
+    type: 'geojson',
+    data: kantiner
   },
   "paint": {
     "circle-color": "#e23f04",
@@ -35,38 +83,9 @@ const layer_brannstasjoner = {
   }
 }
 
-const layer_bygninger = {
-  "id": "Bygninger",
-  "source-layer": "fkb-5wbegm",
-  "type": "fill",
-  "source": {
-    type: 'vector',
-    url: 'mapbox://gurogb.6j3row1r'
-  },
-  "paint": {
-    "fill-color": "#ff69b4",
-  },
-  "layout":{
-    "visibility":"none"
-  }
-}
 
-const layer_befolkning = {
-  "id": "Befolkning",
-  "source-layer": "befolkning-6yprqr",
-  "type": "fill",
-  "source": {
-    type: 'vector',
-    url: 'mapbox://gurogb.776rza6q'
-  },
-  "paint": {
-    "fill-color": "#ff69b4",
-  },
-  "layout":{
-    "visibility":"none"
-  }
-}
 
-const allLayers = [layer_fotruter, layer_bygninger, layer_befolkning, layer_brannstasjoner]
+
+const allLayers = [ layer_gloshaugen, layer_campusrunden, layer_kantiner, layer_hoyskoleparken, layer_frimerket]
 
 export default allLayers

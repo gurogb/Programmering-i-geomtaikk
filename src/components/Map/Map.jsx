@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './map.css'
 import mapboxgl from 'mapbox-gl'
 
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
 class Map extends Component{
@@ -11,12 +12,12 @@ class Map extends Component{
       lng: 10.390457,
       lat: 63.42442,
       zoom: 13,
-      allAvailableLayers: props.allAvailableLayers
     };
   }
 
   componentDidMount() {
-    const { lng, lat, zoom, allAvailableLayers} = this.state
+    const { lng, lat, zoom} = this.state
+    const allAvailableLayers = this.props.allAvailableLayers
 
 
     const map = new mapboxgl.Map({
@@ -30,7 +31,6 @@ class Map extends Component{
 
     map.on('load', function () {
       allAvailableLayers.forEach( layer => {
-        console.log("Adding layer" + layer.id)
         map.addLayer(layer)
     })
   })
@@ -46,6 +46,11 @@ class Map extends Component{
   });
 
   }
+
+  addNewLayer(layer){
+      this.map.addLayer(layer)
+  }
+
 
   updateLayers(layersToAdd, layersToHide){
     this.hideLayers(layersToHide)

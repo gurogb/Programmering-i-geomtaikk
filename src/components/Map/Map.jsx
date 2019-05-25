@@ -11,12 +11,13 @@ class Map extends Component{
       lng: 10.390457,
       lat: 63.42442,
       zoom: 13,
-      layers: props.layers
+      allAvailableLayers: props.allAvailableLayers
     };
   }
 
   componentDidMount() {
-    const { lng, lat, zoom, layers } = this.state;
+    const { lng, lat, zoom, allAvailableLayers} = this.state
+
 
     const map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -25,34 +26,54 @@ class Map extends Component{
       zoom: zoom,
     });
 
+    this.map = map
+
     map.on('load', function () {
-      layers.forEach( layer => {
+      allAvailableLayers.forEach( layer => {
         console.log("Adding layer" + layer.id)
         map.addLayer(layer)
-      })
+    })
+  })
+
+   map.on('move', () => {
+    const { lng, lat } = map.getCenter();
+
+    this.setState({
+      lng: lng.toFixed(4),
+      lat: lat.toFixed(4),
+      zoom: map.getZoom().toFixed(2)
     });
-
-
-
-     map.on('move', () => {
-      const { lng, lat } = map.getCenter();
-
-      this.setState({
-        lng: lng.toFixed(4),
-        lat: lat.toFixed(4),
-        zoom: map.getZoom().toFixed(2)
-      });
-    });
+  });
 
   }
 
-  render() {
-    const { lng, lat, zoom } = this.state;
+  updateLayers(layersToAdd, layersToHide){
+    this.hideLayers(layersToHide)
+    this.showLayers(layersToAdd)
+  }
 
+  hideLayers(layers){
+    layers.forEach(id => {
+      const layer = this.map.getLayer(id)
+      this.map.setLayoutProperty(layer.id, 'visibility', 'none')
+    })
+  }
+
+  showLayers(layers){
+    layers.forEach(id => {
+      const layer = this.map.getLayer(id)
+      this.map.setLayoutProperty(layer.id, 'visibility', 'visible')
+    })
+  }
+
+
+  render() {
     return (
         <div className="map" ref={el => this.mapContainer = el} />
     );
   }
 }
+
+
 
 export default Map

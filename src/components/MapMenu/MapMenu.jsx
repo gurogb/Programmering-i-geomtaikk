@@ -7,11 +7,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmb
 
 class MapMenu extends Component{
   state = {
-      layers: this.props.layers,
+      allAvailableLayers: this.props.layers,
       layersOn: this.props.visibleLayers
-  };
-
-  componentDidMount() {
   }
 
   renderLayerList = (layers) => {
@@ -22,21 +19,20 @@ class MapMenu extends Component{
           onClick={(e) => this.handleLayerOnClick(layer.id, e)}
           key={layer.id}
           >
-          {layersOn.includes(layer.id) ? <span className="active-layer menu-layer">{layer.id}</span> : <span className="disabled-layer menu-layer">{layer.id}</span>}
+          {layersOn.includes(layer) ? <span className="active-layer menu-layer">{layer.id}</span> : <span className="disabled-layer menu-layer">{layer.id}</span>}
         </div>
       )
     })
   }
 
   handleLayerOnClick = (id, event) => {
-    const layersOn = this.state.layersOn
+    const { layersOn , allAvailableLayers } = this.state
     let updatedLayers = []
-    if(layersOn.includes(id)){
-      console.log("Turning off layer: " + id)
-      updatedLayers = layersOn.filter(a =>  a !== id)
+    const clickedLayer = allAvailableLayers.find( layer => layer.id === id)
+    if(layersOn.includes(clickedLayer)){
+      updatedLayers = layersOn.filter(l =>  l.id !== id)
     }else{
-      updatedLayers = [...layersOn, id]
-      console.log("Turning on layer:" + id)
+      updatedLayers = [...layersOn, clickedLayer]
     }
 
     this.setState({
@@ -48,12 +44,15 @@ class MapMenu extends Component{
   }
 
   render() {
-    const layers = this.state.layers
+    //console.log("Rendering MapMenu")
+    const layers = this.state.allAvailableLayers
+    //console.log(layers)
 
     return (
         <div className="layers-menu-container" >
           <h1>Lag</h1>
           {this.renderLayerList(layers)}
+          <h1>Verktøy</h1>
         </div>
     );
   }

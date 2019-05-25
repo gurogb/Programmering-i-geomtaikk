@@ -11,30 +11,37 @@ class RootWrapper extends Component {
 
     this.handleLayerChange = this.handleLayerChange.bind(this);
 
+    this.mapElement = React.createRef()
+
     this.state = {
-      layers: allLayers,
-      visibleLayers: []
+      allAvailableLayers: allLayers,
+      visibleLayers: [],
     };
   }
 
   handleLayerChange(updatedLayers){
-    console.log("Wrapper saying layers have changed!! visibleLayers:")
-    console.log(updatedLayers)
+    const currentVisibleLayers = this.state.visibleLayers
     this.setState({
       visibleLayers: updatedLayers
     })
+
+    const newLayers = updatedLayers.filter(layer => !currentVisibleLayers.includes(layer)).map(layer => layer.id)
+    const layersToHide = currentVisibleLayers.filter(layer => !updatedLayers.includes(layer)).map(layer => layer.id)
+
+    this.mapElement.current.updateLayers(newLayers, layersToHide)
   }
 
   render() {
-    const { layers, visibleLayers } = this.state;
+    const { allAvailableLayers, visibleLayers } = this.state
+
     return (
       <div className="RootWrapper">
        <div className="main-container">
          <div className="menu-container">
-           <MapMenu layers={layers} visibleLayers={visibleLayers} layersChanged={this.handleLayerChange}/>
+           <MapMenu layers={allAvailableLayers} visibleLayers={visibleLayers} layersChanged={this.handleLayerChange}/>
          </div>
          <div className="map-container">
-           <Map  layers={visibleLayers} />
+           <Map allAvailableLayers={allAvailableLayers} ref={this.mapElement} />
          </div>
        </div>
      </div>

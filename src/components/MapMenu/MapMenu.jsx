@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { bufferTool, unionTool, intersectionTool, differenceTool } from '../../mapTools/tools.js'
+import { bufferTool, unionTool, intersectionTool, differenceTool, lineLengthTool, areaTool } from '../../mapTools/tools.js'
 
 import './menu.css'
 
@@ -13,10 +13,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmb
 function LayerDiv(props){
   const { name, active} = props
   if (active){
-    return <div className="active-layer layer"> <ShowIcon/> {name} </div>
+    return <div className="active-layer layer">  {name} <ShowIcon/> </div>
   }else{
     return (
-      <div className="disabled-layer layer"> <HideIcon/> {name}</div>
+      <div className="disabled-layer layer">  {name} <HideIcon/> </div>
     )
   }
 }
@@ -27,7 +27,7 @@ class MapMenu extends Component{
 
         this.handleBufferSubmit = this.handleBufferSubmit.bind(this)
         this.handleOtherSubmit = this.handleOtherSubmit.bind(this)
-
+        this.handleMeasurementSubmit = this.handleMeasurementSubmit.bind(this)
 
     }
 
@@ -35,7 +35,7 @@ class MapMenu extends Component{
   renderLayerList = (layers, visibleLayers) => {
     return layers.map(layer => {
       const active = visibleLayers.includes(layer)
-      const layerTag = layer.id + ", " + layer.type;
+      const layerTag = layer.id
       return(
         <div
           onClick={(e) => this.handleLayerOnClick(layer.id, e)}
@@ -94,10 +94,28 @@ class MapMenu extends Component{
               newLayer = unionTool(layerOne.source.data, layerTwo.source.data, layerOneID +"-" + layerTwoID)
               break
           default:
-              console.log("LayerType not recognized")
+              console.log("ToolType not recognized")
           }
           if (newLayer) this.props.addLayer(newLayer)
 
+  }
+
+  handleMeasurementSubmit(event){
+      event.preventDefault()
+      const toolType = event.target.className
+      const layerID = event.target.getElementsByClassName("measurement-select")[0].value
+      const layer = this.props.layers.find(layer => layer.id === layerID)
+
+      switch (toolType){
+          case 'line-lenght-form':
+            lineLengthTool(layer.source.data, layerID)
+            break
+          case 'area-form':
+            areaTool(layer.source.data, layerID)
+            break
+          default:
+              console.log("ToolType not recognized")
+          }
   }
 
   render() {
@@ -105,27 +123,21 @@ class MapMenu extends Component{
 
     return (
         <div className="menu-container">
-          <div className="layers-menu-container" >
-            <h1>Lag</h1>
-            {this.renderLayerList(layers, visibleLayers)}
 
-
-          </div>
-          <div className="tools-menu-container">
-            <h1>Verktøy</h1>
-            <ToolMenu
-                bufferToolSumbit={this.handleBufferSubmit}
-                handleSubmit={this.handleOtherSubmit}
-                unionTool={unionTool}
-                intersectionTool={intersectionTool}
-                differenceTool={differenceTool}
-                layers={layers}
-                />
-          </div>
-          <div className="add-layer-container">
-              Slippe filer her?
-          </div>
-          <div className="acknowledgement">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" >CC 3.0 BY</a></div>
+            <div className="layers-menu-container" >
+                <h1>Lag</h1>
+                {this.renderLayerList(layers, visibleLayers)}
+            </div>
+            <div className="tools-menu-container">
+                <h1>Verktøy</h1>
+                <ToolMenu
+                    bufferToolSumbit={this.handleBufferSubmit}
+                    handleSubmit={this.handleOtherSubmit}
+                    measurementSubmit={this.handleMeasurementSubmit}
+                    layers={layers}
+                    />
+            </div>
+            <div className="acknowledgement">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" >CC 3.0 BY</a></div>
 
         </div>
 

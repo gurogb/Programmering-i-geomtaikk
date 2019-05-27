@@ -1,5 +1,5 @@
 .active-layer{
-  color: white;
+  color: black;
 }
 
 .disabled-layer{
@@ -14,13 +14,14 @@
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 90%;
-  height: 25px;
-  padding: 6px;
+  padding: 0.4em;
   margin: 4px;
   background-color: #c5c0c0;
   border-radius: 5px;
+  font-size: 0.9em;
+  font-weight: 600;
 }
 
 .menu-container{
@@ -30,22 +31,57 @@
   background-color: grey;
   padding: 20px;
   justify-content: space-between;
+  height: 100vh;
 }
 
 .acknowledgement{
-    font-size: 12;
+    font-size: 0.5em;
+    height: 2%;
 }
 
 .tool{
     background-color: #c5c0c0;
     margin: 4px;
-    padding: 6px;
+    padding: 0.4em;
     border-radius: 5px;
+    font-size: 0.9em;
 }
+
+.tool select{
+    width: 70%;
+    margin: 2px 2px 2px 0;
+}
+
+.tool input[type=submit]{
+    right:0;
+}
+
+.bufferDist{
+    width: 15%;
+    margin: 3px;
+}
+
+.tools-menu-container{
+    height: 50%;
+    overflow: scroll;
+}
+
+.layers-menu-container{
+    height: 45%;
+    overflow: scroll;
+}
+
 
 .add-layer-container{
     background-color: #c5c0c0;
     margin: 4px;
     padding: 6px;
     border-radius: 5px;
+}
+form{
+    border-radius: 0;
+}
+
+select{
+    border-radius:0;
 }

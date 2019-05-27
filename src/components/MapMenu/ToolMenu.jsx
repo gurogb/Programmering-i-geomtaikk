@@ -6,9 +6,12 @@ function ToolMenu(props){
     return(
       <div>
         <BufferTool bufferToolSumbit={props.bufferToolSumbit} layers={props.layers}/>
-        <UnionTool handleSubmit={props.handleSubmit}  unionTool={props.unionTool} layers={props.layers}/>
-        <IntersectionTool handleSubmit={props.handleSubmit} intersectionTool={props.intersectionTool} layers={props.layers}/>
-        <DifferenceTool handleSubmit={props.handleSubmit} differenceTool={props.differenceTool} layers={props.layers}/>
+        <UnionTool handleSubmit={props.handleSubmit}  layers={props.layers}/>
+        <IntersectionTool handleSubmit={props.handleSubmit} layers={props.layers}/>
+        <DifferenceTool handleSubmit={props.handleSubmit} layers={props.layers}/>
+        <LineLengthTool handleMeasurementSubmit={props.measurementSubmit} layers={props.layers}/>
+        <AreaTool handleMeasurementSubmit={props.measurementSubmit} layers={props.layers}/>
+
       </div>
     )
 }
@@ -23,9 +26,46 @@ function BufferTool(props){
                 >
                 <select className="bufferSelect">
                     {props.layers.map(layer => <option key={layer.id} > {layer.id}</option>)}
-                </select>
+                </select> <br/>
+                Bufferdistanse:
                 <input type="number" className="bufferDist"/>
-                <input type="submit" value="GO"/>
+                <input type="submit" value="→"/>
+            </form>
+        </div>
+    )
+}
+
+function LineLengthTool(props){
+
+    return(
+        <div className="tool">
+            Lengde av linje
+            <form
+                onSubmit={props.handleMeasurementSubmit}
+                className="line-lenght-form"
+                >
+                <select className="measurement-select">
+                    {props.layers.filter(layer => layer.source.data.geometry.type === "LineString").map(layer => <option key={layer.id} > {layer.id}</option>)}
+                </select>
+                <input type="submit" value="→"/>
+            </form>
+        </div>
+    )
+}
+
+function AreaTool(props){
+
+    return(
+        <div className="tool">
+            Areal av polygon
+            <form
+                onSubmit={props.handleMeasurementSubmit}
+                className="area-form"
+                >
+                <select className="measurement-select">
+                    {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
+                </select>
+                <input type="submit" value="→"/>
             </form>
         </div>
     )
@@ -42,11 +82,11 @@ function UnionTool(props){
                 >
                 <select className="select-one">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon" ).map(layer => <option key={layer.id} > {layer.id}</option>)}
-                </select>
+                </select> <br/>
                 <select className="select-two">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon"|| layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select>
-                <input type="submit" value="GO"/>
+                <input type="submit" value="→"/>
             </form>
         </div>
     )
@@ -63,11 +103,11 @@ function IntersectionTool(props){
                 >
                 <select className="select-one">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
-                </select>
+                </select><br/>
                 <select className="select-two">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select>
-                <input type="submit" value="GO"/>
+                <input type="submit" value="→"/>
             </form>
         </div>
     )
@@ -88,7 +128,7 @@ function DifferenceTool(props){
                 <select className="select-two">
                     {props.layers.filter(layer => layer.source.data.geometry.type === "Polygon" || layer.source.data.geometry.type === "MultiPolygon").map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select>
-                <input type="submit" value="GO"/>
+                <input type="submit" value="→"/>
             </form>
         </div>
     )

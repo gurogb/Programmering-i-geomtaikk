@@ -9,11 +9,17 @@ html{
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "Avenir",-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;*/
+}
+
+h1{
+    margin:0;
+    font-size: 1.5em;
+    color: black;
 }
 
 .main-container{
@@ -23,10 +29,20 @@ body {
   align-items: stretch;
 }
 
-.menu-container{
-  display: flex;
-  flex-direction: column;
-  width: 20vw;
-  background-color: grey;
-  padding: 20px;
+.map-menu-container{
+    padding: 4px;
+    position: absolute;
+    right: 0;
+    z-index: 100;
+    background-color: #c5c0c0;
+    border-radius: 5px;
+    margin: 2px;
+    top: 0;
+}
+
+.map-menu-container select{
+    width: 100%;
+    padding: 2px;
+    font-family: "Avenir";
+    font-size: 0.8em;
 }

@@ -1,5 +1,57 @@
-import {gloshaugen, campusrunden, kantiner, hoyskoleparken, frimerket} from './geojsondata.js'
+import {gloshaugen, campusrunden, kantiner, hoyskoleparken, frimerket, parkering, bysykkelstativ, lilleCampusrunden} from './geojsondata.js'
 
+/*const andrea_layer = {
+      "id": "Andrea",
+      "type": "line",
+      "source": {
+        type: 'geojson',
+        data: andrea
+      },
+      "paint": {
+         "line-color": "#ff69b4",
+         "line-width": 1
+      },
+      "layout":{
+        "visibility":"visible"
+      }
+    }
+
+
+
+const kjersti_layer =
+    {
+      "id": "Kjersti",
+      "type": "line",
+      "source": {
+        type: 'geojson',
+        data: kjersti
+      },
+      "paint": {
+         "line-color": "#ff69b4",
+         "line-width": 1
+      },
+      "layout":{
+        "visibility":"visible"
+      }
+    }
+
+
+const synne_layer =
+    {
+      "id": "Synne",
+      "type": "line",
+      "source": {
+        type: 'geojson',
+        data: synne
+      },
+      "paint": {
+         "line-color": "#ff69b4",
+         "line-width": 1
+      },
+      "layout":{
+        "visibility":"visible"
+      }
+  }*/
 
 const layer_gloshaugen = {
     "id": "Gløshaugen",
@@ -65,6 +117,22 @@ const layer_campusrunden = {
   }
 }
 
+const layer_lille_campusrunden = {
+  "id": "Lille Campusrunden",
+  "type": "line",
+  "source": {
+    type: 'geojson',
+    data: lilleCampusrunden
+  },
+  "paint": {
+    "line-color": "#4b5acc",
+    "line-width": 1
+  },
+  "layout":{
+    "visibility":"none"
+  }
+}
+
 const layer_kantiner = {
   "id": "Kantiner",
   "type": "circle",
@@ -73,8 +141,44 @@ const layer_kantiner = {
     data: kantiner
   },
   "paint": {
+    "circle-color": "#4b5acc",
+    "circle-radius": 5,
+    "circle-stroke-width": 1,
+    "circle-stroke-color": "#fff"
+  },
+  "layout":{
+    "visibility":"none"
+  }
+}
+
+const layer_parkering = {
+  "id": "Parkeringsplasser",
+  "type": "circle",
+  "source": {
+    type: 'geojson',
+    data: parkering
+  },
+  "paint": {
+    "circle-color": "#3eb975",
+    "circle-radius": 5,
+    "circle-stroke-width": 1,
+    "circle-stroke-color": "#fff"
+  },
+  "layout":{
+    "visibility":"none"
+  }
+}
+
+const layer_bysykkelstativ = {
+  "id": "Bysykkelstativ",
+  "type": "circle",
+  "source": {
+    type: 'geojson',
+    data: bysykkelstativ
+  },
+  "paint": {
     "circle-color": "#e23f04",
-    "circle-radius": 6,
+    "circle-radius": 5,
     "circle-stroke-width": 1,
     "circle-stroke-color": "#fff"
   },
@@ -85,7 +189,6 @@ const layer_kantiner = {
 
 
 
-
-const allLayers = [ layer_gloshaugen, layer_campusrunden, layer_kantiner, layer_hoyskoleparken, layer_frimerket]
+const allLayers = [ layer_gloshaugen, layer_campusrunden, layer_kantiner, layer_hoyskoleparken, layer_frimerket, layer_parkering, layer_bysykkelstativ, layer_lille_campusrunden]
 
 export default allLayers

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { bufferTool, unionTool, intersectionTool, differenceTool, lineLengthTool, areaTool } from '../../mapTools/tools.js'
-
+import Collapsible from 'react-collapsible';
 import './menu.css'
+import menuIcon from '../../icons/menu-icon.png'
 
 import ToolMenu from './ToolMenu.jsx'
 import { HideIcon, ShowIcon } from '../../icons'
@@ -121,21 +122,27 @@ class MapMenu extends Component{
   render() {
     const {layers, visibleLayers} = this.props
 
+    const layerMenuHeading = <div className="collapsible-header"><h1>Lag</h1> <img className="menu-header-icon"src = {menuIcon}/></div>
+    const toolsMenuHeading = <div className="collapsible-header"><h1>Verktøy</h1> <img className= "menu-header-icon" src = {menuIcon}/></div>
+
     return (
         <div className="menu-container">
 
             <div className="layers-menu-container" >
-                <h1>Lag</h1>
-                {this.renderLayerList(layers, visibleLayers)}
+                <Collapsible trigger={layerMenuHeading} open={true}>
+                    {this.renderLayerList(layers, visibleLayers)}
+                </Collapsible>
+
             </div>
             <div className="tools-menu-container">
-                <h1>Verktøy</h1>
-                <ToolMenu
-                    bufferToolSumbit={this.handleBufferSubmit}
-                    handleSubmit={this.handleOtherSubmit}
-                    measurementSubmit={this.handleMeasurementSubmit}
-                    layers={layers}
-                    />
+                <Collapsible trigger={toolsMenuHeading} open={true}>
+                    <ToolMenu
+                        bufferToolSumbit={this.handleBufferSubmit}
+                        handleSubmit={this.handleOtherSubmit}
+                        measurementSubmit={this.handleMeasurementSubmit}
+                        layers={layers}
+                        />
+                </Collapsible>
             </div>
             <div className="acknowledgement">Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" >CC 3.0 BY</a></div>
 

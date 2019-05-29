@@ -1,3 +1,10 @@
+## GIS for Gløs
+
+https://gis-for-glos.firebaseapp.com/
+
+## About
+"GIS for Gløs" is a Web-GIS created for a course at NTNU (The Norwegian University of Science and Technology), called Programming in Geomatics. The main goal of the project was to create a GIS that contains basic geospatial analysis, and it should be easy to use. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

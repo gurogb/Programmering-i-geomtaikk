@@ -27,7 +27,7 @@ export function intersectionTool(l1, l2, layerName){
 
             return createLayerFromGeoJSON(getIntersectingPolygonsFeatureFromArraysOfFeatures(polygonsl1, polygonsl2), 'fill', layerName + '-intersection')
         }else if(isMultiPolygon(l1.geometry.coordinates)){
-
+            console.log("l1 is multipoly")
             const polygons = multiPolygonToPolygons(l1.geometry.coordinates)
             return createLayerFromGeoJSON(getIntersectingPolygonsFeature(l2, polygons), 'fill', layerName + '-intersection')
         }else if(isMultiPolygon(l2.geometry.coordinates)){
@@ -54,19 +54,14 @@ export function areaTool(layer, layerName){
 }
 
 function getIntersectingPolygonsFeatureFromArraysOfFeatures(arrayOfFeaturesOne, arrayOfFeaturesTwo){
-
     let intersectedPolygons = []
     for (var i = 0; i < arrayOfFeaturesOne.length; i++) {
         for (var j = 0; j < arrayOfFeaturesTwo.length; j++) {
-            console.log(arrayOfFeaturesOne[i])
-            console.log(arrayOfFeaturesTwo[j])
             const data = turf.intersect(arrayOfFeaturesOne[i], arrayOfFeaturesTwo[j])
-            console.log(data)
             if(data !== null) intersectedPolygons.push(data.geometry.coordinates)
         }
     }
     const  multiPoly = turf.multiPolygon(intersectedPolygons)
-    console.log(multiPoly)
     return multiPoly
 }
 
@@ -90,10 +85,10 @@ function isMultiPolygon(coordinates){
     }
 }
 
-function multiPolygonToPolygons(coordinates){
+function multiPolygonToPolygons(multipolygon){
     let arrayOfPolygons = []
 
-    for (const pol of coordinates) {
+    for (const pol of multipolygon) {
         const polygon = turf.polygon(pol)
         arrayOfPolygons.push(polygon)
     }

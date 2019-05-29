@@ -61,7 +61,7 @@ const layer_gloshaugen = {
       data: gloshaugen
     },
     "paint": {
-      "fill-color": "#ff69b4",
+      "fill-color": "#bf0933",
       "fill-opacity": 0.4
     },
     "layout":{
@@ -77,7 +77,7 @@ const layer_hoyskoleparken = {
       data: hoyskoleparken
     },
     "paint": {
-      "fill-color": "#ff69b4",
+      "fill-color": "#1053bc",
       "fill-opacity": 0.4
     },
     "layout":{
@@ -93,7 +93,7 @@ const layer_frimerket = {
       data: frimerket
     },
     "paint": {
-      "fill-color": "#ff69b4",
+      "fill-color": "#0ba83f",
       "fill-opacity": 0.4
     },
     "layout":{

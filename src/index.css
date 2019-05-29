@@ -32,7 +32,7 @@ h1{
 .map-menu-container{
     padding: 4px;
     position: absolute;
-    right: 0;
+    right: 15px;
     z-index: 100;
     background-color: white;
     border-radius: 0;

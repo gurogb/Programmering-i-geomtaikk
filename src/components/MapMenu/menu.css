@@ -22,6 +22,7 @@
   border-radius: 5px;
   font-size: 0.9em;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .menu-container{
@@ -34,6 +35,7 @@
   height: 100vh;
   overflow: scroll;
   border-right: 1px solid #c5c0c0;
+  min-width: 250px;
 }
 
 .collapsible-header{
@@ -73,7 +75,8 @@
 }
 
 .tool input[type=submit]{
-    right:0;
+    float: right;
+    cursor: pointer;
 }
 
 .bufferDist{

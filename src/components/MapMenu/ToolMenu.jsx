@@ -28,7 +28,7 @@ function BufferTool(props){
                     {props.layers.map(layer => <option key={layer.id} > {layer.id}</option>)}
                 </select> <br/>
                 Bufferdistanse:
-                <input type="number" className="bufferDist"/>
+                <input type="number" className="bufferDist"/> meter
                 <input type="submit" value="→"/>
             </form>
         </div>
@@ -96,7 +96,7 @@ function IntersectionTool(props){
 
     return(
         <div className="tool">
-            Intersection
+            Snitt
             <form
                 onSubmit ={props.handleSubmit}
                 className="intersection-form"
@@ -117,7 +117,7 @@ function DifferenceTool(props){
 
     return(
         <div className="tool">
-            Difference
+            Differanse
             <form
                 onSubmit ={props.handleSubmit}
                 className="difference-form"

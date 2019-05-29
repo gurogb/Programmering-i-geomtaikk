@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
 import { bufferTool, unionTool, intersectionTool, differenceTool, lineLengthTool, areaTool } from '../../mapTools/tools.js'
 import Collapsible from 'react-collapsible';
 import './menu.css'
@@ -9,8 +7,8 @@ import menuIcon from '../../icons/menu-icon.png'
 import ToolMenu from './ToolMenu.jsx'
 import { HideIcon, ShowIcon } from '../../icons'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA';
 
+//LayerDiv-komponent, er komponenten som utgjør et lag i Lag-menyen
 function LayerDiv(props){
   const { name, active} = props
   if (active){
@@ -22,6 +20,7 @@ function LayerDiv(props){
   }
 }
 
+//MapMenu-komponenten
 class MapMenu extends Component{
     constructor(props){
         super(props)
@@ -33,6 +32,7 @@ class MapMenu extends Component{
     }
 
 
+  //Tar inn to lister med kartlag, layers og visibleLayers, og returnerer en liste JSX-elementer som representerer lagene i layers
   renderLayerList = (layers, visibleLayers) => {
     return layers.map(layer => {
       const active = visibleLayers.includes(layer)
@@ -49,7 +49,8 @@ class MapMenu extends Component{
   }
 
 
-
+  //håndterer klikk på et LayerDiv-element i Lag-lista.
+  //Tar inn id-en til det klikkede elementet og kaller RootWrapper sin funksjon layersChanged med den oppdaterte lista med synlige lag
   handleLayerOnClick = (id, event) => {
     const {layers, visibleLayers} = this.props
     let updatedLayers = []
@@ -60,10 +61,12 @@ class MapMenu extends Component{
       updatedLayers = [...visibleLayers, clickedLayer]
     }
 
+    //Kaller funksjonen layersChanged som er gitt inn som prop
     this.props.layersChanged(updatedLayers)
 
   }
 
+  //Kjøres når buffer-verktøyet brukes. Kaller bufferTool-funksjonen, og så sender det nye laget til addLayer-funksjonen som er gitt inn som prop
   handleBufferSubmit(event){
       event.preventDefault()
       const layerID = event.target.getElementsByClassName("bufferSelect")[0].value
@@ -73,6 +76,7 @@ class MapMenu extends Component{
       this.props.addLayer(bufferedLayer)
   }
 
+  //Kjøres når uniton, difference eller intersection-verktøyet brukes. Kaller den tilhørende tool-funksjonen, og så sender det nye laget til addLayer-funksjonen som er gitt inn som prop
   handleOtherSubmit(event){
       event.preventDefault()
       const toolType = event.target.className
@@ -101,6 +105,7 @@ class MapMenu extends Component{
 
   }
 
+  //Kjøres når linjelengde- eller areal-verktøyet brukes. Kaller tilhørende måle-funskjon, og så displayer resultatet til brukren
   handleMeasurementSubmit(event){
       event.preventDefault()
       const toolType = event.target.className

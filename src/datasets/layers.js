@@ -1,57 +1,6 @@
+//Denne filen tar inn GeoJSON-objekter fra './geojsondata.js' og lager objekter klare til å legges på kartet som kartlag vha mapbox
+
 import {gloshaugen, campusrunden, kantiner, hoyskoleparken, frimerket, parkering, bysykkelstativ, lilleCampusrunden} from './geojsondata.js'
-
-/*const andrea_layer = {
-      "id": "Andrea",
-      "type": "line",
-      "source": {
-        type: 'geojson',
-        data: andrea
-      },
-      "paint": {
-         "line-color": "#ff69b4",
-         "line-width": 1
-      },
-      "layout":{
-        "visibility":"visible"
-      }
-    }
-
-
-
-const kjersti_layer =
-    {
-      "id": "Kjersti",
-      "type": "line",
-      "source": {
-        type: 'geojson',
-        data: kjersti
-      },
-      "paint": {
-         "line-color": "#ff69b4",
-         "line-width": 1
-      },
-      "layout":{
-        "visibility":"visible"
-      }
-    }
-
-
-const synne_layer =
-    {
-      "id": "Synne",
-      "type": "line",
-      "source": {
-        type: 'geojson',
-        data: synne
-      },
-      "paint": {
-         "line-color": "#ff69b4",
-         "line-width": 1
-      },
-      "layout":{
-        "visibility":"visible"
-      }
-  }*/
 
 const layer_gloshaugen = {
     "id": "Gløshaugen",

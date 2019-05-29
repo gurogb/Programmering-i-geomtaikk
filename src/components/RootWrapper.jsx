@@ -9,18 +9,21 @@ class RootWrapper extends Component {
   constructor(props) {
     super(props);
 
+    //Binding av funksjonene
     this.handleLayerChange = this.handleLayerChange.bind(this);
     this.newLayerAdded = this.newLayerAdded.bind(this);
     this.handleBackroundChange = this.handleBackroundChange.bind(this);
 
-    this.mapElement = React.createRef()
+    this.mapElement = React.createRef() //Lager en referanse til map-komponenten som gjør at map-komponentens funksjoner kan kalles fra RootWrapper-komponeenten
 
+    //Setter allAvailableLayers til alle lagene som importeres fra dataset-filen med alle kartlagene
     this.state = {
       allAvailableLayers: allLayers,
       visibleLayers: [],
     };
   }
 
+  //Tar inn et lag, legger det til å lag-listene og kaller addNewLayer-funksjonen i Map-komponenten for å legge til laget i kartet
   newLayerAdded(layer){
       const {allAvailableLayers, visibleLayers} = this.state
       this.setState({
@@ -31,6 +34,7 @@ class RootWrapper extends Component {
       this.mapElement.current.addNewLayer(layer)
   }
 
+  //Tar inn en liste med de oppdaterte synlige lagene, oppdaterer state og kaller funksjoneni Map-komponenten som sørger for at lagene som vises på kartet oppdateres
   handleLayerChange(updatedLayers){
     const currentVisibleLayers = this.state.visibleLayers
     updatedLayers.map(layer => layer.layout.visibility = "visible")
@@ -38,12 +42,13 @@ class RootWrapper extends Component {
       visibleLayers: updatedLayers
     })
 
-    const newLayers = updatedLayers.filter(layer => !currentVisibleLayers.includes(layer)).map(layer => layer.id)
-    const layersToHide = currentVisibleLayers.filter(layer => !updatedLayers.includes(layer)).map(layer => layer.id)
+    const newLayers = updatedLayers.filter(layer => !currentVisibleLayers.includes(layer)).map(layer => layer.id) //Filtrer ut slik at newLayers kun er lagene som ikke var synlige før
+    const layersToHide = currentVisibleLayers.filter(layer => !updatedLayers.includes(layer)).map(layer => layer.id) //Filtrer ut slik at layersToHide kun er lagene som var synlige før, men som ikke skal være det etter oppdateringeen
 
     this.mapElement.current.updateLayers(newLayers, layersToHide)
   }
 
+  //Kalles når brukeren har endret bakgrunnkart, henter ut den nye stilen og kallere funksjonen i kartet som igjen endrere stilen
   handleBackroundChange(event){
       const newStyle = event.target.value;
       console.log(newStyle)

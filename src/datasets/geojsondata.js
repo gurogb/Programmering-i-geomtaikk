@@ -1,3 +1,4 @@
+//Denne filen inneholder GeoJSON-objektene som utgjør dataen i kartlagene
 export const gloshaugen = {
   "geometry": {
     "coordinates": [

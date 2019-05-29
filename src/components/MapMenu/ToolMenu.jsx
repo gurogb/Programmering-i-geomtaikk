@@ -1,8 +1,9 @@
 import React from 'react'
 import './menu.css'
 
+//Tool-menu komponenten.
+//Tar inn funksjoner som håndterer bruk av verktøyene, og kartlagene
 function ToolMenu(props){
-
     return(
       <div>
         <BufferTool bufferToolSumbit={props.bufferToolSumbit} layers={props.layers}/>
@@ -15,9 +16,8 @@ function ToolMenu(props){
       </div>
     )
 }
-
+//BufferTool-komponenten
 function BufferTool(props){
-
     return(
         <div className="tool">
             Buffer
@@ -35,8 +35,8 @@ function BufferTool(props){
     )
 }
 
+//LineLengthTool-komponenten
 function LineLengthTool(props){
-
     return(
         <div className="tool">
             Lengde av linje
@@ -53,8 +53,8 @@ function LineLengthTool(props){
     )
 }
 
+//AreaTool-komponenten
 function AreaTool(props){
-
     return(
         <div className="tool">
             Areal av polygon
@@ -71,8 +71,8 @@ function AreaTool(props){
     )
 }
 
+//UnionTool-komponenten
 function UnionTool(props){
-
     return(
         <div className="tool">
             Union
@@ -92,8 +92,8 @@ function UnionTool(props){
     )
 }
 
+//IntersectionTool-komponenten
 function IntersectionTool(props){
-
     return(
         <div className="tool">
             Snitt
@@ -113,8 +113,8 @@ function IntersectionTool(props){
     )
 }
 
+//DifferenceTool-komponenten
 function DifferenceTool(props){
-
     return(
         <div className="tool">
             Differanse
